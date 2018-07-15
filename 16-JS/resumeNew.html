@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>resume</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="add">很高兴认识你😊~</div>
+            <button id="add-btn">Hello!</button>
+            
+            <h1>简历</h1>
+        
+            <div id="info">
+                <h2>基本信息</h2>
+                <div class="main">
+                    <h3>姓名</h3>
+                    <p>张三</p>
+                    <h3>性别</h3>
+                    <p>女</p>
+                    <h3>应聘职位</h3>
+                    <p>Web前端工程师</p>
+                </div>
+            </div>
+        
+            <div id="contact">
+                <h2>联系方式</h2>
+                <div class="main">
+                    <h3>手机</h3>
+                    <p>123456789</p>
+                    <h3>Email</h3>
+                    <p><a href="#">hello@123.com</a></p>
+                    <h3>个人主页</h3>
+                    <p><a href="http://github.com">Github</a></p>
+                </div>
+            </div>
+        
+            <div id="ability">
+                <h2>能力描述</h2>
+                <div class="main">
+                    <h3>技术能力</h3>
+                    <p>熟练掌握HTML,CSS,JavaScript</p>
+                    <div class="sec-line">
+                        <h3>综合能力</h3>
+                        <p>良好的沟通，主动积极，努力勤奋</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education">
+                <h2>教育经历</h2>
+                <div class="main">
+                    <h3>本科</h3>
+                    <p>百度前端技术学院基础班</p>
+                    <div class="sec-line">
+                        <h3>研究生</h3>
+                        <p>百度前端技术学院进阶班</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="work">
+                <h2>项目经历</h2>
+                <div class="main">
+                    <h3>小度小度</h3>
+                    <p>作为前端工程师参与开发</p>
+                    <div class="sec-line">
+                        <h3>SAN Doc</h3>
+                        <p>作为文档工程师参与SAN Doc编写</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById("add").style.visibility = "hidden";
+            document.getElementById("add-btn").onclick = function() {
+                document.getElementById("add").style.visibility = "visible";
+            }
+        </script>
+    </body>
+</html>
