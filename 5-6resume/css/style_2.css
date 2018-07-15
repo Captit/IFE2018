@@ -1,0 +1,45 @@
+body {
+    font-family:"Microsoft YaHei";
+}
+
+.wrapper {
+    width:900px;
+    margin:auto;
+    overflow:auto;
+    border:solid grey 0.5px;
+}
+
+h1 {
+    background-color:cornflowerblue;
+    color:white;
+    width:200px;
+    height:710px;
+    margin:0 30px 0 0;
+    float:left;
+    text-align:center;
+    padding-top:80px
+}
+
+h2 {
+    margin:1.2em 0 0.8em 0;
+}
+
+h3 {
+    font-size:18px;
+    margin:1em 0 0 0;
+}
+
+p {
+    font-size:16px;
+    margin:0;
+}
+
+#info h3, #contact h3 {
+    display:inline-block;
+    margin:0 0.5em 0 0;
+}
+
+#info p, #contact p {
+    display:inline-block;
+    margin:0 3em 0 0;
+}
