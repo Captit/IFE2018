@@ -52,7 +52,7 @@ p {
     margin:0;
 }
 
-.main > p {
+#ability .main > p, #education .main p, #work .main p {
     margin-left:0;
 }
 
