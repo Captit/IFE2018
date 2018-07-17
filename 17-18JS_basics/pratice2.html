@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+        <input id="dec-number" type="text" placeholder="输入一个十进制非负整数">
+        <input id="bin-bit" type="number" placeholder="bin-bit">
+        <button id="trans-btn">转化为二进制</button>
+        <p id="result">运算结果</p>
+        
+        <script>
+            
+            //将十进制非负整数转化为二进制表示的字符串
+            function dec2bin(decNumber) {
+                if (decNumber >= 0) {
+                    var result = "";
+                    var remainder;
+                    var quotient = decNumber;
+                    do {
+                        remainder = quotient % 2;
+                        quotient = (quotient - remainder) / 2;
+                        result = remainder + result;
+                    } while (quotient);
+                    return result;
+                } else {
+                    return "请输入一个非负整数"
+                }
+            }
+            
+            var transBtn = document.getElementById("trans-btn");
+            var result = document.getElementById("result");
+            
+            //点击按钮时
+            transBtn.onclick = function() {
+                //取得输入值
+                var decNumberStr = dec2bin(Number(document.getElementById("dec-number").value));
+                var binBit = Number(document.getElementById("bin-bit").value);
+                var finalResult;
+                //分情况转化
+                if (decNumberStr.length <= binBit) {
+                    var diff = binBit-decNumberStr.length;
+                    for(var i = 0; i < diff; i++) {
+                        decNumberStr = 0 + decNumberStr;
+                    }
+                    finalResult = decNumberStr;
+                } else {
+                    finalResult = decNumberStr;
+                    console.log("bin-bit小于转化后的二进制数位数")
+                }
+                
+                result.innerHTML = finalResult;
+            }
+        </script>
+    </body>
+</html>

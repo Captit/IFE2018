@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>resume</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="add"></div>
+            <button id="add-btn"></button>
+            
+            <h1>简历</h1>
+        
+            <div id="info">
+                <h2>基本信息</h2>
+                <div class="main">
+                    <h3>姓名</h3>
+                    <p>张三</p>
+                    <h3>性别</h3>
+                    <p>女</p>
+                    <h3>应聘职位</h3>
+                    <p>Web前端工程师</p>
+                </div>
+            </div>
+        
+            <div id="contact">
+                <h2>联系方式</h2>
+                <div class="main">
+                    <h3>手机</h3>
+                    <p>123456789</p>
+                    <h3>Email</h3>
+                    <p><a href="#">hello@123.com</a></p>
+                    <h3>个人主页</h3>
+                    <p><a href="http://github.com">Github</a></p>
+                </div>
+            </div>
+        
+            <div id="ability">
+                <h2>能力描述</h2>
+                <div class="main">
+                    <h3>技术能力</h3>
+                    <p>熟练掌握HTML,CSS,JavaScript</p>
+                    <div class="sec-line">
+                        <h3>综合能力</h3>
+                        <p>良好的沟通，主动积极，努力勤奋</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education">
+                <h2>教育经历</h2>
+                <div class="main">
+                    <h3>本科</h3>
+                    <p>百度前端技术学院基础班</p>
+                    <div class="sec-line">
+                        <h3>研究生</h3>
+                        <p>百度前端技术学院进阶班</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="work">
+                <h2>项目经历</h2>
+                <div class="main">
+                    <h3>小度小度</h3>
+                    <p>作为前端工程师参与开发</p>
+                    <div class="sec-line">
+                        <h3>SAN Doc</h3>
+                        <p>作为文档工程师参与SAN Doc编写</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var add = document.getElementById("add");
+            var addBtn = document.getElementById("add-btn");
+            
+            var times = new Date().getHours();
+            var btnContent;
+            if (times < 9) {
+                btnContent = "早上好";
+            } else if (times < 12) {
+                btnContent = "上午好";
+            } else if (times < 14) {
+                btnContent = "中午好";
+            } else if (times < 18) {
+                btnContent = "下午好";
+            } else if (times < 23) {
+                btnContent = "晚上好";
+            } else {
+                btnContent = "你好";
+            }
+            addBtn.innerHTML = btnContent;
+            add.style.visibility = "hidden";
+            addBtn.onclick = function() {
+                document.getElementById("add").style.visibility = "visible";
+                var addContent;
+                if (times < 9) {
+                    addContent = "早上有个好心情~";
+                } else if (times < 12) {
+                    addContent = "上午要努力工作哦~";
+                } else if (times < 14) {
+                    addContent = "中午吃什么呢~";
+                } else if (times < 18) {
+                    addContent = "下午打起精神来！";
+                } else if (times < 23) {
+                    addContent = "忙了一天了，晚上好好休息一下吧~";
+                } else {
+                    addContent = "这么晚了，睡觉吧~";
+                }
+                add.innerHTML = addContent;
+            }
+        </script>
+    </body>
+</html>

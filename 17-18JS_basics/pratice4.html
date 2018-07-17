@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IFE ECMAScript</title>
+        <style>
+            table {
+                border-collapse:collapse;
+            }
+            
+            td {
+                border:2px solid;
+                background-color:cyan;
+                padding:5px 10px;
+                margin:5px;
+            }
+        </style>
+    </head>
+    <body>
+        <table id="table"></table>
+        
+        <script>
+            for (var n = 1; n <= 9; n++) {
+                var numStr = "";
+                for (var m = 1; m <= n; m++) {
+                    var result = n*m;
+                    numStr = numStr + (n + "*" + m + "=" + result + ", ");
+                }
+                console.log(numStr);
+            }
+            
+            var talbe = document.getElementById("table");
+            for (var n = 1; n <= 9; n++ ) {
+                var row = document.createElement('tr');
+                table.appendChild(row);
+                for (var m = 1; m <= n; m++) {
+                    var result = n*m;
+                    var cell = document.createElement('td');
+                    cell.textContent = n + "*" + m + "=" + result;
+                    row.appendChild(cell);
+                }
+            }
+        </script>
+    </body>
+</html>

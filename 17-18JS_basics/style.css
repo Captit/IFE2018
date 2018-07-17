@@ -1,0 +1,78 @@
+body {
+    font-family:"Microsoft YaHei"
+}
+
+.wrapper {
+    position:relative;
+    width:960px;
+    margin:auto;
+    border:solid #dddddd 0.8px;
+}
+
+h1 {
+    margin:0;
+    height:50px;
+    background-color:#999999;
+    color:white;
+    font-size:14px;
+    line-height:50px;
+    padding-left:25px;
+}
+
+h2 {
+    margin:0;
+    background-color:#dddddd;
+    width:100px;
+    height:100px;
+    font-size:12px;
+    text-align:center;
+    line-height:100px;
+    float:left;
+    border-bottom:solid white 0.8px;
+}
+
+.main {
+    height:100px;
+    padding-left:120px;
+    font-size:12px;
+    border-bottom:solid #dddddd 0.8px;
+}
+
+h3 {
+    display:inline-block;
+    margin:10px 0 0 0;
+    font-size:12px;
+}
+
+p {
+    display:inline-block;
+    margin:10px 40px 0 10px;
+}
+
+.sec-line h3, .sec-line p {
+    margin:0;
+}
+
+#ability .main p, #education .main p, #work .main p {
+    margin-left:0;
+}
+
+#add-btn {
+    float:right;
+    background-color:white;
+    border-style:inset;
+    height:30px;
+    width:80px;
+    margin:10px 30px;
+}
+
+#add {
+    width:300px;
+    height:150px;
+    background-color:#dddddd;
+    position:absolute;
+    right:30px;
+    top:70px;
+    text-align:center;
+    line-height:150px;
+}

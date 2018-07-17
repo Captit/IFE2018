@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IFE ECMAScript</title>
+    </head>
+    <body>
+        <input id="first-number" type="number" value="0" placeholder="第一个数字">
+        <input id="second-number" type="number" value="0" placeholder="第二个数字">
+        <button id="add-btn">加</button>
+        <button id="minus-btn">减</button>
+        <button id="times-btn">乘</button>
+        <button id="divide-btn">除</button>
+        <p id="result">运算结果</p>
+        <p id="check"></p>
+        
+        <script>
+        //加
+        document.getElementById("add-btn").onclick = function() {
+            var firstValue = document.getElementById("first-number").value;
+            console.log(firstValue);
+            var secondValue = Number(document.getElementById("second-number").value);
+            var result = document.getElementById("result");
+            var sumResult = firstValue + secondValue;
+            result.innerHTML = sumResult;
+            if (firstValue.toString() === "NaN" || secondValue.toString() === "NaN") {
+                document.getElementById("result").innerHTML = "请输入正确的数字";
+            }
+        }
+        //减
+        document.getElementById("minus-btn").onclick = function() {
+            var firstValue = Number(document.getElementById("first-number").value);
+            var secondValue = Number(document.getElementById("second-number").value);
+            var result = document.getElementById("result");
+            var minusResult = firstValue - secondValue;
+            result.innerHTML = minusResult;
+            if (firstValue.toString() === "NaN" || secondValue.toString() === "NaN") {
+                document.getElementById("result").innerHTML = "请输入正确的数字";
+            }
+        }
+        //乘
+        document.getElementById("times-btn").onclick = function() {
+            var firstValue = Number(document.getElementById("first-number").value);
+            var secondValue = Number(document.getElementById("second-number").value);
+            var result = document.getElementById("result");
+            var timesResult = firstValue * secondValue;
+            result.innerHTML = timesResult;
+            if (firstValue.toString() === "NaN" || secondValue.toString() === "NaN") {
+                document.getElementById("result").innerHTML = "请输入正确的数字!";
+            }
+        }
+        //除
+        document.getElementById("divide-btn").onclick = function() {
+            var firstValue = Number(document.getElementById("first-number").value);
+            var secondValue = Number(document.getElementById("second-number").value);
+            var result = document.getElementById("result");
+            var divideResult = firstValue / secondValue;
+            result.innerHTML = divideResult;
+            if (secondValue == 0) {
+                document.getElementById("result").innerHTML = "除数不能为零！";
+            } else if (firstValue.toString() === "NaN" || secondValue.toString() === "NaN") {
+                document.getElementById("result").innerHTML = "请输入正确的数字";
+            }
+        }
+        
+        
+    </script>
+    </body>
+</html>
