@@ -38,28 +38,35 @@
     function getAllListItem() {
         // 返回页面中所有li标签
         var list = document.getElementsByTagName("li");
+        //高级选择器
+        //var list = document.querySelectorAll("li");
+        return list
     }
 
     function findAllHtmlSpanInOneSection(sectionId) {
         // 返回某个section下所有span中内容为HTML的span标签
         var section = document.getElementById(sectionId);
         var spans = section.getElementsByTagName("span");
-        var results = [];
+        //高级选择器
+        //var spans = document.querySelectorAll(sectionId + " span");
+        var result = [];
         for (var i = 0; i < spans.length; i++) {
-            if (spans[i].textContent == "HTML") {
+            if (spans[i].innerHTML === "HTML") {
                 results.push(spans[i]);
             }
         }
-        return results;
+        return result;
     }
 
     function findListItem(sectionId, spanCont) {
         // 返回某个section下，所有所包含span内容为spanCont的LI标签
         var section = ducument.getElementById(sectionId);
         var li = section.getElementsByTagName("li");
+        //高级选择器
+        //var li = document.querySelectorAll(sectionId + " li");
         var result = [];
         for(var i = 0; i < li.length; i++) {
-            if (li[i].getElementsByTagName("span").textContent == spancont) {
+            if (li[i].getElementsByTagName("span").textContent === spancont) {
                 result.push(li[i]);
             }
         }
@@ -70,9 +77,11 @@
         // 返回某个section下，class为active的链接中包含的文字内容
         var section = document.getElementById(sectionId);
         var a = section.getElementsByTagName("a");
+        //高级选择器
+        //var a = document.querySelectorAll(sectionId + " a");
         var result = [];
         for (var i = 0; i < a.length; i++) {
-            if (a[i].className == "active") {
+            if (a[i].className === "active") {
                 result.push(a[i].textContent);
             }
         }
