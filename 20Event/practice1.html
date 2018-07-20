@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <input id="name" type="text">    
+        <button id="submit-btn">Submit</button>
+        
+        <script>
+            var button = document.getElementById("submit-btn");
+            var name = document.getElementById("name");
+            
+            function consoleOut() {
+            var result = document.getElementById("name");
+            console.log(result.value);
+        }
+            
+            button.onclick = consoleOut;
+            document.getElementById("name").onkeydown = function (event) {
+                if (event.keyCode == 13) {
+                    consoleOut();
+                } else if (event.keyCode == 27) {
+                    this.value = "";
+                }
+            }
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            div {
+                height:480px;
+                width:480px;
+                margin:auto;
+                background-image:url(erik_ce204002.jpg);
+                background-position:0px -480px;
+            }
+        </style>
+    </head>
+    <body>
+        <div></div>
+        
+        <script>
+            var div = document.getElementsByTagName("div")[0];
+            var yOffset = 0;
+            var id1,id2;
+            var con = 0;
+            function smile() {
+                yOffset -= 480;
+                div.style.backgroundPosition = "0px " + yOffset + "px";
+                if (yOffset <= -7680) {
+                    con = 1;
+                    yOffset = -7680;
+                }
+            }
+            function smileBack() {
+                yOffset += 480;
+                div.style.backgroundPosition = "0px " + yOffset + "px";
+                if (yOffset >= 0) {
+                    con = 0;
+                    yOffset = 0;
+                }
+            }
+            
+            function fun() {
+                if (con == 0) {
+                    smile();
+                } else if (con == 1) {
+                    smileBack();
+                }
+            }
+            
+            setInterval(fun,100);
+            
+        </script>
+    </body>
+</html>
