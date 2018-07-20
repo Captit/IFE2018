@@ -17,7 +17,7 @@
         <div></div>
         
         <script>
-            var div = document.getElementsByTagName("div")[0];
+            /*var div = document.getElementsByTagName("div")[0];
             var yOffset = 0;
             var id1,id2;
             var con = 0;
@@ -46,8 +46,38 @@
                 }
             }
             
-            setInterval(fun,100);
+            setInterval(fun,100);*/
             
+            //改进后
+            window.onload = function() {
+                var div = document.getElementsByTagName("div")[0];
+                var yOffset = 0;
+                var con = true;
+                function smile() {
+                    if (con) {
+                        yOffset -= 480;
+                    } else {
+                        yOffset += 480;
+                    }
+                    if (yOffset == -7680 || yOffset == 0) {
+                        con = !con;
+                    }
+                    div.style.backgroundPosition = "0px " + yOffset + "px";
+                }
+                setInterval(smile,100);
+            }
+            
+            /*这是smile()的另一种方法
+            var i = 0;
+            function smile() {
+                var remain = i % 32;
+                if (remain <= 16) {
+                    div.style.backgroundPosition = "0px " + (-remain*480) + "px";
+                } else {
+                    div.style.backgroundPosition = "0px " + ((remain-32)*480) + "px";
+                }
+                i++;
+            }*/
         </script>
     </body>
 </html>
