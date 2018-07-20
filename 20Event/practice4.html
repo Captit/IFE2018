@@ -12,6 +12,39 @@
             var fadeObj = document.getElementById("fade-obj");
             var fadeBtn = document.getElementById("fade-btn");
             var opacity = 1;
+            var id;
+            
+            function fadeAni() {
+                //动画核心：透明度变化
+                if (con) {
+                    opacity += 0.005;
+                } else {
+                    opacity -= 0.005;
+                }
+                fadeBtn.disabled = true;
+                fadeObj.style.opacity = opacity;
+                
+                //到达临界点时，停止计时，转换按钮状态
+                if (opacity <= 0 || opacity >= 1) {
+                    clearInterval(id);
+                    con = !con;
+                    fadeBtn.disabled = false;
+                }
+                
+                //改变文字内容
+                if (opacity <= 0) {
+                    fadeBtn.innerHTML = "淡入";
+                } else if (opacity >= 1) {
+                    fadeBtn.innerHTML = "淡出";
+                }
+            }
+            
+            //事件处理
+            fadeBtn.onclick = function() {
+                id = setInterval(fadeAni,10);
+            }
+            
+            /*
             var id1,id2;
             function fadeOut() {
                 fadeObj.style.opacity = opacity;
@@ -43,7 +76,7 @@
                     clearInterval(id1);
                     id2 = setInterval(fadeIn,10);
                 }
-            }
+            }*/
         </script>
     </body>
 </html>
