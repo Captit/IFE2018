@@ -6,6 +6,7 @@
     </head>
     <body>
         <script>
+            /*这个太麻烦了...
             function diyTrim(str) {
                 //需要将rsult设置为全局变量
                 result = str;
@@ -26,9 +27,20 @@
                 }
                 
                 return result;
-            }
-
+            }*/
             
+            function diyTrim(str) {
+                var result = "";
+                var i = 0, j = str.length-1;
+                while(str[i] == " " || str[i] == "　") {
+                    i++;
+                }
+                while(str[j] == " " || str[j] == "　") {
+                    j--;
+                }
+                result = str.slice(i,j+1);
+                return result;
+            }
             
             console.log(diyTrim(' a f b    ')); // ->a f b
             console.log(diyTrim('    ffdaf    ')); // ->ffdaf
@@ -39,7 +51,7 @@
             console.log(diyTrim('　')); // ->
             console.log(diyTrim('')); // ->
             
-            
+            /*
             function removeRepetition(str) {
                 //需要将rsult设置为全局变量
                 result = str;
@@ -56,6 +68,20 @@
                     }
                 }
                 
+                return result;
+            }*/
+            
+            function removeRepetition(str) {
+                //空字符串直接返回
+                if (!str) {
+                    return "";
+                }
+                var result = str[0];
+                for (var i = 1; i < str.length; i++) {
+                    if (str[i] !== str[i-1]) {
+                        result += str[i];
+                    }
+                }
                 return result;
             }
             
