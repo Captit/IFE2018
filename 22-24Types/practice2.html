@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div>
+            <label>String A:
+                <input id="radio-a" type="radio" checked="true" name="str-obj" value="a">
+            </label>
+            <textarea id="str-a"></textarea>
+            <label>String B:
+                <input id="radio-b" type="radio" name="str-obj" value="b">
+            </label>
+            <textarea id="str-b"></textarea>        
+            <label>Num A：<input id="num-a" type="number" value="0"></label>
+            <label>Num B：<input id="num-b" type="number" value="1"></label>
+        </div>
+        <div>
+            <button id="id1">获取当前选中输入的内容长度</button>
+            <button id="id2">当前选中输入中的第3个字符</button>
+            <button id="id3">把两个输入框的文字连接在一起输出（concat）</button>
+            <button id="id4">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+            <button id="id5">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+            <button id="id6">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+            <button id="id7">当前选中输入框的行数</button>
+            <button id="id8">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+            <button id="id9">把所选输入框中的内容全部转为大写</button>
+            <button id="id10">把所选输入框中的内容全部转为小写</button>
+            <button id="id11">把所选输入框中内容的半角空格全部去除</button>
+            <button id="id12">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+        </div>
+        <p id="result"></p>
+        
+        <script>
+            var p = document.getElementById("result");
+            var div = document.getElementsByTagName("div")[1];
+            
+            //事件委托
+            div.onclick = function(e) {
+                var id = e.target.id;
+                //得到所有输入框中的内容
+                var strA = document.getElementById("str-a").value;
+                var strB = document.getElementById("str-b").value;
+                var numA = Number(document.getElementById("num-a").value);
+                var numB = Number(document.getElementById("num-b").value);
+                //得到当前选中的输入框
+                var radioA = document.getElementById("radio-a");
+                var radioB = document.getElementById("radio-b");
+                var str,str_;
+                if (radioA.checked === true) {
+                    str = strA;
+                    str_ = strB;
+                } else if (radioB.checked === true) {
+                    str = strB;
+                    str_ = strA;
+                }
+                //不同的按钮对应实现不同的功能
+                switch(id) {
+                    case "id1":
+                        p.innerHTML = str.length;
+                        break;
+                    case "id2":
+                        p.innerHTML = str[2];
+                        break;
+                    case "id3":
+                        p.innerHTML = strA.concat(strB);
+                        break;
+                    case "id4":
+                        p.innerHTML = strA.indexOf(strB);
+                        break;
+                    case "id5":
+                        p.innerHTML = strA.lastIndexOf(strB);
+                        break;
+                    case "id6":
+                        p.innerHTML = str.slice(numA,numB);
+                        break;
+                    case "id7":
+                        p.innerHTML = str.split("\n").length;
+                        break;
+                    case "id8":
+                        p.innerHTML = str.substr(numA,numB);
+                        break;
+                    case "id9":
+                        p.innerHTML = str.toUpperCase();
+                        break;
+                    case "id10":
+                        p.innerHTML = str.toLowerCase();
+                        break;
+                    case "id11":
+                        p.innerHTML = str.replace(/ /g,"");
+                        break;
+                    case "id12":
+                        p.innerHTML = str.replace(/a/g,str_);
+                        break;
+                }
+            }
+            
+        </script>
+    </body>
+</html>

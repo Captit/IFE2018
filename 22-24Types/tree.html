@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function Node(val) {
+                this.value = val;
+                this.parent = null;
+                this.children = [];
+            }
+            
+            function Tree(val) {
+                this._root = new Node(val);
+            }
+            
+            Tree.prototype.traverseDF = function() {
+ 
+    // this is a recurse and immediately-invoking function 
+    (function recurse(currentNode) {
+        // step 2
+        for (var i = 0, length = currentNode.children.length; i < length; i++) {
+            // step 3
+            recurse(currentNode.children[i]);
+        }
+ 
+        // step 4
+        console.log(currentNode.value);
+         
+        // step 1
+    })(this._root);
+ 
+}
+            
+            var tree = new Tree("one"); 
+ 
+            tree._root.children.push(new Node('two'));
+            tree._root.children[0].parent = tree;
+
+            tree._root.children.push(new Node('three'));
+            tree._root.children[1].parent = tree;
+
+            tree._root.children.push(new Node('four'));
+            tree._root.children[2].parent = tree;
+
+            tree._root.children[0].children.push(new Node('five'));
+            tree._root.children[0].children[0].parent = tree._root.children[0];
+
+            tree._root.children[0].children.push(new Node('six'));
+            tree._root.children[0].children[1].parent = tree._root.children[0];
+
+            tree._root.children[2].children.push(new Node('seven'));
+            tree._root.children[2].children[0].parent = tree._root.children[2];
+            
+            tree.traverseDF(tree._root); 
+        </script>
+    </body>
+</html>

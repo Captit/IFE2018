@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function diyTrim(str) {
+                //需要将rsult设置为全局变量
+                result = str;
+                
+                //先判断是否为空字符串
+                if (str === "") {
+                    result = "";
+                } else {
+                    if (str.indexOf(" ") === 0 || str.indexOf("　") === 0) {
+                    str = str.slice(1,str.length);
+                    diyTrim(str);
+                    }   
+                    //下面不能用else if！！
+                    if (str.lastIndexOf(" ") === str.length-1 || str.lastIndexOf("　") === str.length-1) {
+                        str = str.slice(0,str.length-1);
+                        diyTrim(str);
+                    }
+                }
+                
+                return result;
+            }
+
+            
+            
+            console.log(diyTrim(' a f b    ')); // ->a f b
+            console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+            console.log(diyTrim('1    ')); // ->1
+            console.log(diyTrim('　　f')); // ->f
+            console.log(diyTrim('  　  a f b 　　 ')); // ->a f b
+            console.log(diyTrim(' ')); // ->
+            console.log(diyTrim('　')); // ->
+            console.log(diyTrim('')); // ->
+            
+            
+            function removeRepetition(str) {
+                //需要将rsult设置为全局变量
+                result = str;
+                
+                //先判断是否为空字符串
+                if (str === "") {
+                    result = "";
+                } else {
+                    for (var i = 1; i < str.length; i++) {
+                        if (str[i] === str[i-1]) {
+                            str = str.replace(str[i],"");
+                            removeRepetition(str);
+                        } 
+                    }
+                }
+                
+                return result;
+            }
+            
+            console.log(removeRepetition("aaa")); // ->a
+            console.log(removeRepetition("abbba")); // ->aba
+            console.log(removeRepetition("aabbaabb")); // ->abab
+            console.log(removeRepetition("")); // ->
+            console.log(removeRepetition("abc")); // ->abc
+        </script>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div>
+            <label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"></label><input id="num-a" type="text">
+            <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" type="text">
+        </div>
+        <div>
+            <button id="id1">判断当前选中的输入框输入内容是否为数字</button>
+            <button id="id2">把 A 四舍五入为 B 个小数位数的数字</button>
+            <button id="id3">当前选中数字的绝对值</button>
+            <button id="id4">对当前选中的数字进行上舍入</button>
+            <button id="id5">对当前选中的数字进行下舍入</button>
+            <button id="id6">把当前选中的数字四舍五入为最接近的整数</button>
+            <button id="id7">返回 A 和 B 中的最高值</button>
+            <button id="id8">返回 A 和 B 中的最低值</button>        
+        </div>
+        <p id="result"></p>
+        
+        <script>
+            var p = document.getElementById("result");
+            var radios = document.getElementsByName("math-obj");
+            var div = document.getElementsByTagName("div")[1];
+            
+            //事件委托减少请求次数
+            div.onclick = function(e) {
+                var id = e.target.id;
+                //得到输入的数字
+                var numA = Number(document.getElementById("num-a").value);
+                var numB = Number(document.getElementById("num-b").value);
+                var num;
+                //得到当前选中的数字
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked === true) {
+                        var num = Number(document.querySelectorAll("div > input")[i].value);
+                    }
+                }
+                //输入框中若不是数字，报错
+                judgeNumber(numA);
+                judgeNumber(numB);
+                //根据选中的不同按钮执行不同的函数
+                switch(id) {
+                    case "id1":
+                        p.innerHTML = fun1(num);
+                        break;
+                    case "id2":
+                        p.innerHTML = fun2(numA,numB);
+                        break;
+                    case "id3":
+                        p.innerHTML = fun3(num);
+                        break;
+                    case "id4":
+                        p.innerHTML = fun4(num);
+                        break;
+                    case "id5":
+                        p.innerHTML = fun5(num);
+                        break;
+                    case "id6":
+                        p.innerHTML = fun6(num);
+                        break;
+                    case "id7":
+                        p.innerHTML = fun7(numA,numB);
+                        break;
+                    case "id8":
+                        p.innerHTML = fun8(numA,numB);
+                        break;
+                }
+            }
+            
+            //以下是所有涉及到的函数
+            
+            //输入框中若不是数字，报错
+            function judgeNumber(num) {
+                if (num.toString() === "NaN") {
+                    console.log("错误！输入框中必须是数字！")
+                }
+            }
+            
+            //注意：空字符串会被当作0
+            function fun1(num) {
+                if (num.toString() === "NaN") {
+                    return "不是数字";
+                } else {
+                    return "是数字";
+                }
+            }
+            
+            function fun2(num1,num2) {
+                return num1.toFixed(num2);
+            }
+            
+            function fun3(num) {
+                return Math.abs(num);
+            }
+            
+            function fun4(num) {
+                return Math.ceil(num);
+            }
+            
+            function fun5(num) {
+                return Math.floor(num);
+            }
+            
+            function fun6(num) {
+                return Math.round(num);
+            }
+            
+            function fun7(num1,num2) {
+                return Math.max(num1,num2);
+            }
+            
+            function fun8(num1,num2) {
+                return Math.min(num1,num2);
+            }
+        </script>
+    </body>
+</html>
