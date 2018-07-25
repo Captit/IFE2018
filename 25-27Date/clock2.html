@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div id="selectors">
+            <select id="year-select">
+            </select>
+
+            <select id="month-select">
+            </select>
+
+            <select id="day-select">
+            </select>
+
+            <select id="hour-select">
+            </select>
+
+            <select id="minute-select">
+            </select>
+
+            <select id="second-select">   
+            </select>
+        </div>
+
+        <p id="result-wrapper">现在距离 <span id="year">2001</span>年<span id="month">1</span>月<span id="day">1</span>日星期<span id="weekday">X</span> <span id="hour">HH</span>:<span id="min">MM</span>:<span id="sec">SS</span> 还有 <span id="differDay">X</span> 天 <span id="differHour">X</span> 小时 <span id="differMin">X</span> 分 <span id="differSec">X</span> 秒</p>
+
+        <script>
+            //创建一系列options
+            createOptions("year-select",0,32,"20",true);
+            createOptions("month-select",1,12,"",false);
+            createOptions("day-select",1,31,"",false);
+            createOptions("hour-select",0,23,"",true);
+            createOptions("minute-select",0,59,"",true);
+            createOptions("second-select",0,59,"",true);
+            
+            //当用户改变任意一项输入时，调整月份的天数
+            var sel = document.getElementById("selectors");
+            sel.onchange = function(e) {
+                var monthVal = document.getElementById("month-select").value;
+                var yearVal = document.getElementById("year-select").value;
+                var dayNum;
+                var mon31 = "1,3,5,7,8,10,12";
+                var mon30 = "4,6,9,11";
+                var mon28 = "2";
+                //根据用户输入的值判断是哪个月份
+                //需要排除选择天数本身的情况
+                if (e.target.id == "year-select" || e.target.id == "month-select") {
+                    if (mon28.indexOf(monthVal) !== -1) {
+                        dayNum = 28;
+                        if (isLeap(Number(yearVal))) {
+                            dayNum = 29;
+                        }
+                    } else if (mon30.indexOf(monthVal) !== -1) {
+                        dayNum = 30;
+                    } else if (mon31.indexOf(monthVal) !== -1) {
+                        dayNum = 31;
+                    }
+                    //修复用户体验方面的小bug（会重新归零
+                    var dayVal = document.getElementById("day-select").value;
+                    //移除现在的天数
+                    removeOptions("day-select");
+                    //创建新的天数
+                    createOptions("day-select",1,dayNum,"",false);
+                    var options = document.getElementById("day-select").childNodes;
+                    //把用户之前选中的数字更改为默认值
+                    for (var i = 0; i < options.length; i++) {
+                        if (options[i].value == dayVal) {
+                            options[i].selected = "selected";
+                        }
+                    }
+                }
+            }
+            
+            //得到用户输入的值，进行计算，并将结果展示出来
+            function displayResult() {
+                //得到用户输入的值
+                var year = Number(document.getElementById("year-select").value);
+                var month = Number(document.getElementById("month-select").value);
+                var day = Number(document.getElementById("day-select").value);
+                var hour = Number(document.getElementById("hour-select").value);
+                var min = Number(document.getElementById("minute-select").value);
+                var sec = Number(document.getElementById("second-select").value);
+                var dateNow = new Date();
+                var dateSel = new Date();
+                //将用户输入的值转化为Date对象
+                //注意转化为Date对象时，month是以0到11为准的
+                dateSel.setFullYear(year,month-1,day);
+                dateSel.setHours(hour,min,sec);
+                //得到相差值
+                var result = dateDiffer(dateNow,dateSel);
+                //将需要展示的结果格式进行包装
+                //得到星期几
+                var weekday = toWeekday(dateSel);
+                //补齐时分秒的位数
+                hour = addZero(hour);
+                min = addZero(min);
+                sec = addZero(sec);
+                //需要改变的文字内容
+                var text = "";
+                if (dateNow >= dateSel) {
+                    text = "已经过去";
+                } else if (dateNow < dateSel) {
+                    text = "还有";
+                }
+                //将结果放在result-wrapper中
+                document.getElementById("result-wrapper").innerHTML = "现在距离 " + year + "年" + month + "月" + day + "日星期" + weekday + " " + hour + ":" + min + ":" + sec + " " + text + result[0] + "天" + result[1] + "小时" + result[2] + "分" + result[3] + "秒";
+            }
+                        
+            setInterval("displayResult()",1000);
+            
+            
+            
+            
+            
+            
+            
+            //创建选择项
+            function createOptions(id,begin,end,front,bool) {
+                var sel = document.getElementById(id);
+                for (var i = begin; i <= end; i++) {
+                    var option = document.createElement("option");
+                    if (bool) {
+                        if (i < 10) {
+                        i = "0" + i;
+                      }
+                    }
+                    option.value = front + i;
+                    option.innerHTML = front + i;
+                    sel.appendChild(option);
+                }
+            }
+            //清空选择项
+            //这里有个用户体验方面的bug...更换月份或者年份时，用户之前选择的天数会重新归零
+            function removeOptions(id) {
+                var sel = document.getElementById(id);
+                var children = sel.childNodes;
+                for (var i = children.length-1; i >= 0; i--) {
+                    sel.removeChild(children[i]);
+                }
+            }
+            
+            //判断是否为闰年
+            function isLeap(year) {
+                if (year % 4 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            
+            //两个日期之差，返回数组
+            function dateDiffer(dateNow,dateSel) {
+                dateNow = dateNow.getTime();
+                dateSel = dateSel.getTime();
+                var differ = Math.abs(dateNow - dateSel);
+                var dayAmount = 24 * 60 * 60 * 1000;
+                var day = Math.floor(differ / dayAmount);
+                var hourAmount = 60 * 60 * 1000;
+                var hourDiffer = differ - day * dayAmount;
+                var hour = Math.floor(hourDiffer / hourAmount);
+                var minAmount = 60 * 1000;
+                var minDiffer = hourDiffer - hour * hourAmount;
+                var min = Math.floor(minDiffer / minAmount);
+                var secAmout = 1000;
+                var secDiffer = minDiffer - min * minAmount;
+                var sec = Math.floor(secDiffer / secAmout);
+                return [day,hour,min,sec];
+            }
+            
+            //根据日期返回星期几
+            function toWeekday(date) {
+                var date = date.getDay();
+                //从日到六
+                var weekdays = ["日","一","二","三","四","五","六"];
+                return weekdays[date];
+            }
+            
+            //位数补齐
+            function addZero(num) {
+                if (num < 10) {
+                    num = "0" + num;
+                }
+                return num;
+            }
+            
+            
+        </script>
+    </body>
+</html>
