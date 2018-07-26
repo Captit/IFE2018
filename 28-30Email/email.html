@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #email-input {
+                padding:10px;
+                color:grey;
+                width:180px;
+                height:15px;
+                font-size:14px;
+            }
+            
+            #email-sug-wrapper li {
+                list-style:none;
+                color:grey;
+                font-size:14px;
+                width:180px;
+                padding:5px 10px;
+            }
+            
+            #email-sug-wrapper {
+                margin:0;
+                padding:0;
+                width:200px;
+                border:solid grey 1px;
+                border-top-style:none;
+                overflow: auto;
+            }
+            
+            #email-sug-wrapper li:hover {
+                background-color:lightskyblue;
+            }
+            
+            .select {
+                background-color:pink;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <input id="email-input" type="text">
+            <ul id="email-sug-wrapper" class="email-sug"></ul>
+        </div>
+        <p></p>
+        
+        <script>
+            var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+            
+            var emailInput = document.getElementById("email-input");
+            var emailWrapper = document.getElementById("email-sug-wrapper");
+            
+            var nowSelectTipIndex = 0;
+            //键盘监听
+            emailInput.onkeyup = function() {
+                var inputVal = getInput();
+                var emailList = createList(inputVal);
+                displayList(emailList);
+                controlList(inputVal);
+            }
+            
+            //三个键的键盘监听
+            emailInput.onkeydown = function(e) {
+                var li = document.querySelectorAll("li");
+                if (e.keyCode == 40) {
+                    if (nowSelectTipIndex != li.length-1) {
+                        nowSelectTipIndex += 1;
+                    } else {
+                        nowSelectTipIndex = 0;
+                    }
+                }
+                if (e.keyCode == 38) {
+                    if (nowSelectTipIndex != 0) {
+                        nowSelectTipIndex -= 1;
+                    } else {
+                        nowSelectTipIndex = li.length - 1;
+                    }
+                }
+                if (e.keyCode == 13) {
+                    emailInput.value = li[nowSelectTipIndex].innerHTML;
+                    hideWrapper();
+                }
+            }
+            
+            //鼠标监听
+            emailWrapper.onmouseup = function(e) {
+                var target = e.target;
+                if (target.nodeName == "LI") {
+                    emailInput.value = target.innerHTML;
+                    hideWrapper();
+                }
+            }
+            
+            function getInput() {
+                return emailInput.value.trim();
+            }
+            
+            function createList(str) {
+                var emailList = [];
+                if (str.indexOf("@") !== -1) {
+                    var strMatch = str.slice(str.indexOf("@") + 1);
+                    str = str.slice(0,str.indexOf("@"));
+                }
+                
+                for (var i = 0; i < postfixList.length; i++) {
+                    if (postfixList[i].indexOf(strMatch) == 0) {
+                        var str_ = str + "@" + postfixList[i];
+                        var li = document.createElement("li");
+                        li.innerHTML = str_;
+                        emailList.push(li);
+                    }
+                }
+                
+                if (emailList.length == 0) {
+                    for (var i = 0; i < postfixList.length; i++) {
+                        var str_ = str + "@" + postfixList[i];
+                        var li = document.createElement("li");
+                        li.innerHTML = str_;
+                        emailList.push(li);
+                    }
+                }
+                //设置样式
+                emailList[nowSelectTipIndex].setAttribute("class","select");
+                return emailList;
+            }
+            
+            function displayList(emailList) {
+                emailWrapper.innerHTML = "";
+                for (var i = 0; i < emailList.length; i++) {
+                    emailWrapper.appendChild(emailList[i]);
+                }
+            }
+            
+            function controlList(str) {
+                if (str == "") {
+                    hideWrapper();
+                } else {
+                    displayWrapper();
+                }
+            }
+            
+            function hideWrapper() {
+                emailWrapper.style.display = "none";
+            }
+            
+            function displayWrapper() {
+                emailWrapper.style.display = "block";
+            }
+                
+        </script>
+    </body>
+</html>
