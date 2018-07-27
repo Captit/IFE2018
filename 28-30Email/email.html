@@ -5,36 +5,40 @@
         <title></title>
         <style>
             #email-input {
-                padding:10px;
-                color:grey;
-                width:180px;
-                height:15px;
-                font-size:14px;
+                padding: 10px;
+                color: grey;
+                width: 200px;
+                height: 40px;
+                font-size: 14px;
+                border: 1px solid grey;
+                outline: none;
+                box-sizing: border-box; 
             }
             
             #email-sug-wrapper li {
-                list-style:none;
-                color:grey;
-                font-size:14px;
-                width:180px;
-                padding:5px 10px;
+                list-style: none;
+                color: grey;
+                font-size: 14px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                cursor: pointer;
             }
             
             #email-sug-wrapper {
-                margin:0;
-                padding:0;
-                width:200px;
-                border:solid grey 1px;
-                border-top-style:none;
+                margin-top: -2px;
+                padding: 0;
+                width: 200px;
+                border: solid grey 1px;
+                box-sizing: border-box;
                 overflow: auto;
             }
             
             #email-sug-wrapper li:hover {
-                background-color:lightskyblue;
+                background-color: lightskyblue;
             }
             
             .select {
-                background-color:pink;
+                background-color: pink;
             }
         </style>
     </head>
@@ -52,6 +56,7 @@
             var emailWrapper = document.getElementById("email-sug-wrapper");
             
             var nowSelectTipIndex = 0;
+            
             //用户输入监听
             emailInput.oninput = function(e) {
                 if (!(e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13)) {
@@ -64,7 +69,7 @@
             
             //三个键的键盘监听
             emailInput.onkeydown = function(e) {
-                //！！！若是直接用emailList做参考会有bug，emailList.length的长度是累加变化的...还没弄清为啥...
+                //！！！若是直接用emailList做参考会有bug，emailList.length的长度是累加变化的...还没弄清为啥
                 var li = document.querySelectorAll("#email-sug-wrapper li");
                 if (e.keyCode == 40) {
                     if (nowSelectTipIndex != li.length-1) {
@@ -83,7 +88,7 @@
                     displayList(createList(getInput()));
                 }
                 if (e.keyCode == 13) {
-                    emailInput.value = li[nowSelectTipIndex].innerHTML;
+                    emailInput.value = htmlDecode(li[nowSelectTipIndex].innerHTML);
                     hideWrapper();
                 }
             }
@@ -91,22 +96,40 @@
             //鼠标监听
             emailWrapper.onclick = function(e) {
                 var target = e.target;
-                if (target.nodeName.toLowerCase == "li") {
-                    emailInput.value = target.innerHTML;
+                if (target.nodeName.toLowerCase() == "li") {
+                    emailInput.value = htmlDecode(target.innerHTML);
                     hideWrapper();
                 }
             }
+            
 
             
+            
+            // html转码
+            var htmlEncode = function(html) {
+                var temp = document.createElement('div');
+                temp.textContent != undefined ? temp.textContent = html : temp.innerText = html;
+                return temp.innerHTML;
+            }
+            
+            // html解码
+            var htmlDecode = function(html) {
+                var temp = document.createElement('div');
+                temp.innerHTML = html;
+                return temp.innerText || temp.textContent;
+            }
+
             //重置选中状态
             function resetSelected() {
                 nowSelectTipIndex = 0;
             }
             
+            //取得输入值，trim后返回
             function getInput() {
                 return emailInput.value.trim();
             }
             
+            //创建列表
             function createList(str) {
                 var emailList = "";
                 var postfix = [];
@@ -125,17 +148,20 @@
                 postfix = (emailList.length != 0) ? postfix : postfixList;
                 //与str拼接
                 for (var i = 0; i < postfix.length; i++) {
-                    emailList += "<li>" + str + "@" + postfix[i] + "</li>";
+                    emailList += "<li>" + htmlEncode(str) + "@" + postfix[i] + "</li>";
                 }
                 return emailList;
             }
             
+            //将列表添加到wraper中并渲染
             function displayList(emailList) {
                 emailWrapper.innerHTML = emailList;
+                //渲染
                 var li = document.querySelectorAll("#email-sug-wrapper li");
                 li[nowSelectTipIndex].setAttribute("class","select");
             }
             
+            //控制显示隐藏
             function isDisplay(str) {
                 if (str == "") {
                     hideWrapper();
@@ -143,6 +169,7 @@
                     displayWrapper();
                 }
             }
+            
             
             function hideWrapper() {
                 emailWrapper.style.display = "none";
